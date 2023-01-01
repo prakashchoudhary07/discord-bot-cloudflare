@@ -7,7 +7,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        env:
+          DISCORD_TOKEN: ${{secrets.DISCORD_TOKEN}}
+          DISCORD_APPLICATION_ID: ${{secrets.DISCORD_APPLICATION_ID}}
+          DISCORD_TEST_GUILD_ID: ${{secrets.DISCORD_TEST_GUILD_ID}}
       - run: npm install
       - run: npm run lint-check
       - run: npm run format-check
-      - run: DISCORD_TOKEN = ${{secrets.DISCORD_TOKEN}} DISCORD_APPLICATION_ID = ${{secrets.DISCORD_APPLICATION_ID}} DISCORD_TEST_GUILD_ID = ${{secrets.DISCORD_TEST_GUILD_ID}} ts-node-esm src/register.ts
+      - run: npm run register

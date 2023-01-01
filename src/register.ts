@@ -8,6 +8,7 @@ async function registerGuildCommands(
   applicationId?: string,
   testGuildId?: string
 ) {
+  console.log(process.env);
   if (!token) {
     throw new Error("The DISCORD_TOKEN environment variable is required.");
   }

@@ -14,4 +14,4 @@
 - initiate wrangler in the project by using `wrangler init -y` command
   - This command initiates a git repository, sets your ptoject to typescript, installs wrangler to your package.json
 - now install the packages using the command: `npm i discord-interactions itty-router`
-- now install dev dependency packages using : `npm i -D eslint ngrok eslint prettier pre-commit ts-node @typescript-eslint/eslint-plugin @typescript-eslint/parser`
+- now install dev dependency packages using : `npm i -D eslint ngrok eslint prettier pre-commit ts-node @typescript-eslint/eslint-plugin @typescript-eslint/parser @types/node`

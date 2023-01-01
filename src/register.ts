@@ -1,10 +1,13 @@
 import { HELLO_COMMAND, VERIFY_COMMAND, TASK_COMMAND } from "./commands.js";
 import { registerResponseType } from "./types.js";
+import { config } from "dotenv";
 
-async function registerGuildCommands() {
-  const token = process.env.DISCORD_TOKEN;
-  const applicationId = process.env.DISCORD_APPLICATION_ID;
-  const testGuildId = process.env.DISCORD_TEST_GUILD_ID;
+config();
+async function registerGuildCommands(
+  token?: string,
+  applicationId?: string,
+  testGuildId?: string
+) {
   if (!token) {
     throw new Error("The DISCORD_TOKEN environment variable is required.");
   }
@@ -53,4 +56,8 @@ async function registerCommands(url: string, token: string) {
   return response;
 }
 
-registerGuildCommands();
+registerGuildCommands(
+  process.env.DISCORD_TOKEN,
+  process.env.DISCORD_APPLICATION_ID,
+  process.env.DISCORD_TEST_GUILD_ID
+);

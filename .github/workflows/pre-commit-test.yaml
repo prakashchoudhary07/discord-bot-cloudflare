@@ -7,10 +7,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        with: |
-          DISCORD_TOKEN
-          DISCORD_APPLICATION_ID
-          DISCORD_TEST_GUILD_ID
+        with:
+          DISCORD_TOKEN: ${{secrets.DISCORD_TOKEN}}
+          DISCORD_APPLICATION_ID: ${{secrets.DISCORD_APPLICATION_ID}}
+          DISCORD_TEST_GUILD_ID: ${{secrets.DISCORD_TEST_GUILD_ID}}
         env:
           DISCORD_TOKEN: ${{secrets.DISCORD_TOKEN}}
           DISCORD_APPLICATION_ID: ${{secrets.DISCORD_APPLICATION_ID}}

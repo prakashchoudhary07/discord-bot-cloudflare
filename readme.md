@@ -1,4 +1,5 @@
 ## Steps used up to set up this project.
+
 - Create a blank github repository
 - Add the following secrets to github repository secrets:
   - DISCORD_TOKEN

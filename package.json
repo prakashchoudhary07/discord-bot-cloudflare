@@ -31,5 +31,12 @@
   "dependencies": {
     "discord-interactions": "^3.2.0",
     "itty-router": "^3.0.11"
+  },
+  "pre-commit": [
+    "lint-check",
+    "format-check"
+  ],
+  "volta": {
+    "node": "18.12.1"
   }
 }

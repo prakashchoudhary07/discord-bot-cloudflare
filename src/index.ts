@@ -5,7 +5,13 @@ import {
   verifyKey,
 } from "discord-interactions";
 import { HELLO_COMMAND, TASK_COMMAND, VERIFY_COMMAND } from "./commands";
-import { ENV, messageTypes, resultTypes, taskResponseTypes, taskTypes } from "./types";
+import {
+  ENV,
+  messageTypes,
+  resultTypes,
+  taskResponseTypes,
+  taskTypes,
+} from "./types";
 import firestoreOperations from "./utils/firebase";
 // import { registerGuildCommands } from "./register";
 
@@ -31,7 +37,7 @@ router.get("/", async () => {
   }`);
 });
 
-router.post("/", async (request, env:ENV) => {
+router.post("/", async (request, env: ENV) => {
   const message: messageTypes = await request.json();
   if (message.type === InteractionType.PING) {
     console.log("Handling ping request");
@@ -57,40 +63,57 @@ router.post("/", async (request, env:ENV) => {
         const response = message.data.options[0].value;
         const PROJECT_ID = "rds-backend-f72bf";
         const collection = "users";
-        const result: Array<resultTypes> = await firestoreOperations("POST", PROJECT_ID, collection, env.FIRESTORE_PRIVATE_KEY, env.FIRESTORE_SERVICE_ACCOUNT, response) as Array<resultTypes>;
+        const result: Array<resultTypes> = (await firestoreOperations(
+          "POST",
+          PROJECT_ID,
+          collection,
+          env.FIRESTORE_PRIVATE_KEY,
+          env.FIRESTORE_SERVICE_ACCOUNT,
+          response
+        )) as Array<resultTypes>;
         return new JsonResponse({
           type: 4,
           data: {
-            content: `Hi ${result[0].document.fields.github_id.stringValue} verifying ${response} \n startTime = ${new Date(startTime)}, \n endTime= ${new Date(Date.now())}`,
+            content: `Hi ${
+              result[0].document.fields.github_id.stringValue
+            } verifying ${response} \n startTime = ${new Date(
+              startTime
+            )}, \n endTime= ${new Date(Date.now())}`,
           },
         });
       }
       case TASK_COMMAND.name.toLowerCase(): {
         console.log("Handling task command");
-        let username =""
-        if(message.data.options)
-          username = message.data.options[0]?.value;
-        const response = await fetch(`https://api.realdevsquad.com/tasks/${username}`);
+        let username = "";
+        if (message.data.options) username = message.data.options[0]?.value;
+        const response = await fetch(
+          `https://api.realdevsquad.com/tasks/${username}`
+        );
         const data: taskResponseTypes = await response.json();
-        let discordReply= "hello";
-        if(data.statusCode){
-          discordReply="Data not Found";
-        }
-        else{
-          const tasks = data.tasks? data.tasks: [];
-          let reply = `\`\`\`json\n`
+        let discordReply = "hello";
+        if (data.statusCode) {
+          discordReply = "Data not Found";
+        } else {
+          const tasks = data.tasks ? data.tasks : [];
+          let reply = `\`\`\`json\n`;
           let i = 0;
-          tasks.forEach((task:taskTypes)=>{
-            i= i+1;
-            reply += `{ \n\ttask number: ${i}, \n\ttitle: ${task.title}, \n\tends on: ${(Date.now() - task.endsOn)/(1000*3600*24) },\n\tstatus: ${task.status},\n\tAssigned to: ${task.assignee}\n},\n`;
+          tasks.forEach((task: taskTypes) => {
+            i = i + 1;
+            reply += `{ \n\ttask number: ${i}, \n\ttitle: ${
+              task.title
+            }, \n\tends on: ${
+              (Date.now() - task.endsOn) / (1000 * 3600 * 24)
+            },\n\tstatus: ${task.status},\n\tAssigned to: ${
+              task.assignee
+            }\n},\n`;
             console.log(new Date(task.endsOn));
-          })
-          reply+=`\`\`\``
-          discordReply=reply
+          });
+          reply += `\`\`\``;
+          discordReply = reply;
         }
         return new JsonResponse({
           type: 4,
-          data:{
+          data: {
             content: `${discordReply}`,
           },
         });

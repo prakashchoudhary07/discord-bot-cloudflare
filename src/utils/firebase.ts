@@ -14,8 +14,8 @@ export default async function firestoreOperations(
 
   const authToken = await getGoogleAuthToken(user, key, scope);
 
-  if(!searchValue){
-    searchValue="jhonDoe"
+  if (!searchValue) {
+    searchValue = "jhonDoe";
   }
 
   const body = `
@@ -37,7 +37,7 @@ export default async function firestoreOperations(
         }
       } 
     }
-  }`
+  }`;
 
   const response = await fetch(url, {
     method: method,
@@ -48,7 +48,7 @@ export default async function firestoreOperations(
       Authorization: `Bearer ${authToken}`,
       Accept: "application/json",
     },
-    body: body
+    body: body,
   });
   return await response.json();
 }

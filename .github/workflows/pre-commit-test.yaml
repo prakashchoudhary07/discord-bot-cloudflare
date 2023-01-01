@@ -7,7 +7,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          secrets: ${{toJSON(secrets)}}
       - run: npm install
       - run: npm run lint-check
       - run: npm run format-check
-      - run: npx ts-node-esm src/register.js DISCORD_TOKEN = ${{secrets.DISCORD_TOKEN}} DISCORD_APPLICATION_ID = ${{secrets.DISCORD_APPLICATION_ID}} DISCORD_TEST_GUILD_ID = ${{secrets.DISCORD_TEST_GUILD_ID}}
+      - run: npm run register

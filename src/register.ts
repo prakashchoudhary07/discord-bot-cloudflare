@@ -1,6 +1,7 @@
 import { HELLO_COMMAND, VERIFY_COMMAND, TASK_COMMAND } from "./commands.js";
 import { registerResponseType } from "./types.js";
 import { config } from "dotenv";
+import fetch from "node-fetch";
 
 config();
 async function registerGuildCommands(
@@ -55,8 +56,6 @@ async function registerCommands(url: string, token: string) {
   }
   return response;
 }
-
-console.log(process.env);
 
 registerGuildCommands(
   process.env.DISCORD_TOKEN,

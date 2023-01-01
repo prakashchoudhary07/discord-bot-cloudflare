@@ -13,7 +13,6 @@ import {
   taskTypes,
 } from "./types";
 import firestoreOperations from "./utils/firebase";
-// import { registerGuildCommands } from "./register";
 
 class JsonResponse extends Response {
   constructor(body: unknown, init?: ResponseInit) {

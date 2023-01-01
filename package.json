@@ -10,7 +10,6 @@
     "lint-fix": "eslint --fix .",
     "format-check": "echo 'Checking the formatting of your code 👨‍💻' && prettier --check .",
     "format-fix": "prettier --write .",
-    "register": "DISCORD_TOKEN = ${{secrets.DISCORD_TOKEN}} DISCORD_APPLICATION_ID = ${{secrets.DISCORD_APPLICATION_ID}} DISCORD_TEST_GUILD_ID = ${{secrets.DISCORD_TEST_GUILD_ID}} ts-node-esm src/register.ts",
     "ngrok": "ngrok http 8787"
   },
   "keywords": [],

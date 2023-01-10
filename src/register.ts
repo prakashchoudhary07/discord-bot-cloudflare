@@ -1,7 +1,7 @@
-import { HELLO_COMMAND, VERIFY_COMMAND, TASK_COMMAND } from "./commands.js";
-import { registerResponseType } from "./types.js";
+import { HELLO_COMMAND, VERIFY_COMMAND, TASK_COMMAND } from "./commands";
+import { registerResponseType } from "./types";
 import { config } from "dotenv";
-import fetch from "node-fetch";
+import { fetch } from "./utils/fetch";
 
 config();
 async function registerGuildCommands(

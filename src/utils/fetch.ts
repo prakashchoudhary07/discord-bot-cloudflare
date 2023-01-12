@@ -1,9 +1,8 @@
-import { RequestInfo, RequestInit, Response } from "node-fetch";
+import { RequestInfo, RequestInit } from "node-fetch";
 
-export const fetch = async function (
-  url: RequestInfo,
-  init?: RequestInit
-): Promise<Response> {
-  const { default: fetch } = await import("node-fetch");
-  return await fetch(url, init);
+const _importDynamic = new Function("modulePath", "return import(modulePath)");
+
+export const fetch = async function (url: RequestInfo, init?: RequestInit) {
+  const { default: fetch } = await _importDynamic("node-fetch");
+  return fetch(url, init);
 };
